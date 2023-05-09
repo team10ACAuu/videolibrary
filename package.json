@@ -1,0 +1,14 @@
+{
+  "name": "video",
+  "version": "1.0.0",
+  "description": "Video library Team 10",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Robert",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
