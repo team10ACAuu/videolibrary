@@ -1,12 +1,7 @@
-const fs = require('fs');
 const express = require('express');
 
-const app = express();
-
-app.use(express.json());  
-
- const videos =JSON.parse(
-    fs.readFileSync(`${__dirname}/dev-data/data/videos-simple.json`));
+const videos =JSON.parse(
+    fs.readFileSync("../../dev-data/data/videos-simple.json"));
 
 
  // 2nd argument is rout handler
@@ -64,10 +59,7 @@ app.use(express.json());
                 video: newVideo
             }
         })
-     });
-
-
-     
+     });     
   });
  
   // Update video - (Patch)
@@ -109,12 +101,3 @@ app.use(express.json());
         data: null
     });
   });
-
-
-const port = 3000;
-
-app.listen(port, ()=> {
-    console.log(`App running on port ${port}...`)
-});
-
-                                                              
