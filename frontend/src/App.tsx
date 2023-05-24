@@ -1,4 +1,5 @@
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider, Box } from '@chakra-ui/react'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/navbar"
 import Home from "./pages/home";
@@ -9,8 +10,14 @@ function App() {
   return (
     <ChakraProvider>
       <Navbar/>
-      <Home />
-      <VideoJS source={videoUrl}/>
+      <Box p={4}>
+        <BrowserRouter>
+          <Routes>
+              <Route index element={<Home />} />
+              <Route path="blogs" element={<VideoJS source={videoUrl}/>} />
+          </Routes>
+        </BrowserRouter>
+      </Box>
     </ChakraProvider>
   )
 }

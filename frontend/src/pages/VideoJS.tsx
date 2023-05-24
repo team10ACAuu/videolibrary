@@ -22,6 +22,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ source }) => {
 
   return (
     <div>
+      VIDEO
       <video ref={videoRef} className="video-js vjs-default-skin" playsInline />
     </div>
   );
