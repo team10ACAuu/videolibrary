@@ -15,13 +15,15 @@ import {
   MenuList,
   MenuItem,
   MenuDivider,
+  useColorMode,
   useDisclosure,
   useColorModeValue,
   Stack,
 } from '@chakra-ui/react';
-import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
+import { HamburgerIcon, CloseIcon, AddIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 
-const Links = ['Dashboard', 'Projects', 'Team'];
+//?Routy ZDE! [Název, odkaz]
+const Links = [['Main page', '/'], ['About us', 'blogs']];
 
 const NavLink = ({ children }: { children: ReactNode }) => (
   <Link
@@ -38,6 +40,7 @@ const NavLink = ({ children }: { children: ReactNode }) => (
 );
 
 export default function withAction() {
+  const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -58,7 +61,11 @@ export default function withAction() {
               spacing={4}
               display={{ base: 'none', md: 'flex' }}>
               {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+                <NavLink key={link[1]}>
+                  <a href={link[1]}>
+                    {link[0]}
+                  </a>
+                </NavLink>
               ))}
             </HStack>
           </HStack>
@@ -69,7 +76,15 @@ export default function withAction() {
               size={'sm'}
               mr={4}
               leftIcon={<AddIcon />}>
-              Action
+              Upload
+            </Button>
+            <Button 
+              onClick={toggleColorMode}
+              variant={'solid'}
+              colorScheme={'teal'}
+              size={'sm'}
+              mr={4}>
+              {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
             </Button>
             <Menu>
               <MenuButton
@@ -86,10 +101,10 @@ export default function withAction() {
                 />
               </MenuButton>
               <MenuList>
-                <MenuItem>Link 1</MenuItem>
-                <MenuItem>Link 2</MenuItem>
+                <MenuItem>My videos</MenuItem>
+                <MenuItem>Dashboard</MenuItem>
                 <MenuDivider />
-                <MenuItem>Link 3</MenuItem>
+                <MenuItem>Log out</MenuItem>
               </MenuList>
             </Menu>
           </Flex>
@@ -99,14 +114,16 @@ export default function withAction() {
           <Box pb={4} display={{ md: 'none' }}>
             <Stack as={'nav'} spacing={4}>
               {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+                <NavLink key={link[1]}>
+                  <a href={link[1]}>
+                    {link[0]}
+                  </a>
+                </NavLink>
               ))}
             </Stack>
           </Box>
         ) : null}
       </Box>
-
-      <Box p={4}>Main Content Here</Box>
     </>
   );
 }
