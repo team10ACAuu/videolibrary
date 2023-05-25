@@ -51,12 +51,8 @@ const createVideo = async (req, res) => {
 const getVideo = async (req, res) => {
     const { id } = req.params
     console.log(req.params);
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(404).json({error: 'No such video'})
-    }
   
-    const video = await Video.findById(id)
+    const video = await Video.find({id: id}).exec()
   
     if (!video) {
       return res.status(404).json({error: 'No such video'})
@@ -73,12 +69,8 @@ const getAllVideos = async (req, res) => {
 
 const updateVideo = async (req, res) => {
     const { id } = req.params
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({error: 'No such video'})
-    }
   
-    const video = await Video.findOneAndUpdate({_id: id}, {
+    const video = await Video.findOneAndUpdate({id: id}, {
       ...req.body
     })
   
@@ -92,11 +84,7 @@ const updateVideo = async (req, res) => {
 const deleteVideo = async (req, res) => {
     const { id } = req.params
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({error: 'No such video'})
-    }
-  
-    const video = await Video.findOneAndDelete({_id: id})
+    const video = await Video.findOneAndDelete({id: id})
   
     if(!video) {
       return res.status(400).json({error: 'No such video'})

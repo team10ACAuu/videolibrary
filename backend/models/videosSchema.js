@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const VideoSchema = new mongoose.Schema({
     id: {
       type: Number,
-      required: false,
+      required: true,
       unique: true,
     },
     name: {
