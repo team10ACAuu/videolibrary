@@ -55,7 +55,7 @@ export default function withAction() {
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack spacing={8} alignItems={'center'}>
-            <Box>  <img src={logo} alt="Company logo" style={{width: "50px", height: "50px"}} /> </Box>
+            <Box>  <img src={logo} alt="Company logo" style={{width: "77px", height: "77px"}} /> </Box>
             <HStack
               as={'nav'}
               spacing={4}
