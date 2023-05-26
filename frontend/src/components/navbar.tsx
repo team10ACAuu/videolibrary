@@ -1,7 +1,9 @@
 import logo from "../assets/logo/logo.png";
-// ---------------------------------------//
-
 import { ReactNode } from 'react';
+
+import React, { useState } from 'react';
+
+
 import {
   Box,
   Flex,
@@ -19,8 +21,21 @@ import {
   useDisclosure,
   useColorModeValue,
   Stack,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  FormControl,
+  FormLabel,
+  Input,
+  Textarea
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, AddIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
+
+
 
 //?Routy ZDE! [Název, odkaz]
 const Links = [['Main page', '/'], ['About us', 'blogs']];
@@ -43,6 +58,11 @@ export default function withAction() {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const [file, setFile] = useState(null);
+
+  const onFileChange = (event) => {
+    setFile(event.target.files[0]);
+  };
   return (
     <>
       <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
@@ -75,9 +95,11 @@ export default function withAction() {
               colorScheme={'teal'}
               size={'sm'}
               mr={4}
-              leftIcon={<AddIcon />}>
+              leftIcon={<AddIcon />}
+              onClick={onOpen}>
               Upload
             </Button>
+
             <Button 
               onClick={toggleColorMode}
               variant={'solid'}
@@ -124,6 +146,34 @@ export default function withAction() {
           </Box>
         ) : null}
       </Box>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay bg="blackAlpha.800"/>
+        <ModalContent>
+          <ModalHeader>Nahrání videa:</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <FormControl>
+              <FormLabel>Název videa</FormLabel>
+              <Input placeholder="Název videa" />
+              <FormLabel mt={4}>Popis videa</FormLabel>
+              <Textarea placeholder="Popis videa" />
+            </FormControl>
+            <FormControl mt={4}>
+              <FormLabel>Nahrát video</FormLabel>
+              <Input type="file" accept="video/*" style={{ display: 'none' }} onChange={onFileChange} id="file-upload"/>
+              <label htmlFor="file-upload">
+                <Button as="span">Choose File</Button>
+              </label>
+            </FormControl>
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
+              Upload
+            </Button>
+            <Button variant="ghost" onClick={onClose}>Cancel</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 }
