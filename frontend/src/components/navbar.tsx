@@ -20,7 +20,7 @@ import {
 import { HamburgerIcon, CloseIcon, AddIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 
 //?Routy ZDE! [Název, odkaz]
-const Links = [['Main page', '/'], ['About us', 'blogs']];
+const Links = [['Main page', '/'], ['About us', '/about']];
 
 const NavLink = ({ children }: { children: ReactNode }) => (
   <Link
@@ -59,9 +59,9 @@ export default function withAction() {
               display={{ base: 'none', md: 'flex' }}>
               {Links.map((link) => (
                 <NavLink key={link[1]}>
-                  <a href={link[1]}>
+                  <Link href={link[1]}>
                     {link[0]}
-                  </a>
+                  </Link>
                 </NavLink>
               ))}
             </HStack>
@@ -99,7 +99,7 @@ export default function withAction() {
               </MenuButton>
               <MenuList>
                 <MenuItem>My videos</MenuItem>
-                <MenuItem>Dashboard</MenuItem>
+                <MenuItem><Link href={'/dashboard'}>Dashboard</Link></MenuItem>
                 <MenuDivider />
                 <MenuItem>Log out</MenuItem>
               </MenuList>
@@ -112,9 +112,9 @@ export default function withAction() {
             <Stack as={'nav'} spacing={4}>
               {Links.map((link) => (
                 <NavLink key={link[1]}>
-                  <a href={link[1]}>
+                  <Link href={link[1]}>
                     {link[0]}
-                  </a>
+                  </Link>
                 </NavLink>
               ))}
             </Stack>
