@@ -39,6 +39,7 @@ import {
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, AddIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 
+//?Routy ZDE! [Název, odkaz]
 const Links = [['Main page', '/'], ['About us', 'blogs']];
 
 const NavLink = ({ children }: { children: ReactNode }) => (
@@ -59,14 +60,14 @@ export default function withAction() {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   
-  // ZMĚNA ZDE: Nahradili jste null výchozí URL.
+
   const [thumbnailUrl, setThumbnailUrl] = useState<string>(myImage);
 
   
   const handleThumbnailUrlChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setThumbnailUrl(event.target.value);
   };
-// the rest of your code...
+
 
 
   return (
