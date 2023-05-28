@@ -1,9 +1,13 @@
+import myImage from "../assets/images/blackscreen.png";
+
+import {
+  // ostatní importy ...
+  Image,
+} from '@chakra-ui/react';
+
 import logo from "../assets/logo/logo.png";
 import { ReactNode } from 'react';
-
 import React, { useState } from 'react';
-
-
 import {
   Box,
   Flex,
@@ -35,9 +39,6 @@ import {
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, AddIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 
-
-
-//?Routy ZDE! [Název, odkaz]
 const Links = [['Main page', '/'], ['About us', 'blogs']];
 
 const NavLink = ({ children }: { children: ReactNode }) => (
@@ -57,12 +58,17 @@ const NavLink = ({ children }: { children: ReactNode }) => (
 export default function withAction() {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  
+  // ZMĚNA ZDE: Nahradili jste null výchozí URL.
+  const [thumbnailUrl, setThumbnailUrl] = useState<string>(myImage);
 
-  const [file, setFile] = useState(null);
-
-  const onFileChange = (event) => {
-    setFile(event.target.files[0]);
+  
+  const handleThumbnailUrlChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setThumbnailUrl(event.target.value);
   };
+// the rest of your code...
+
+
   return (
     <>
       <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
@@ -75,7 +81,7 @@ export default function withAction() {
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack spacing={8} alignItems={'center'}>
-            <Box>  <img src={logo} alt="Company logo" style={{width: "77px", height: "77px"}} /> </Box>
+            <Box>  <img src={logo} alt="Company logo" style={{width: "65px", height: "65px"}} /> </Box>
             <HStack
               as={'nav'}
               spacing={4}
@@ -146,34 +152,39 @@ export default function withAction() {
           </Box>
         ) : null}
       </Box>
+      
+      
       <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay bg="blackAlpha.800"/>
-        <ModalContent>
-          <ModalHeader>Nahrání videa:</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <FormControl>
-              <FormLabel>Název videa</FormLabel>
-              <Input placeholder="Název videa" />
-              <FormLabel mt={4}>Popis videa</FormLabel>
-              <Textarea placeholder="Popis videa" />
-            </FormControl>
-            <FormControl mt={4}>
-              <FormLabel>Nahrát video</FormLabel>
-              <Input type="file" accept="video/*" style={{ display: 'none' }} onChange={onFileChange} id="file-upload"/>
-              <label htmlFor="file-upload">
-                <Button as="span">Choose File</Button>
-              </label>
-            </FormControl>
-          </ModalBody>
-          <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Upload
-            </Button>
-            <Button variant="ghost" onClick={onClose}>Cancel</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    </>
-  );
-}
+  <ModalOverlay bg="blackAlpha.800" />
+  <ModalContent>
+    <ModalHeader>Nahrání videa:</ModalHeader>
+    <ModalCloseButton />
+    <ModalBody>
+      <FormControl>
+        <FormLabel>Název videa</FormLabel>
+        <Input placeholder="Název videa" />
+      </FormControl>
+      <FormControl mt={4}>
+        <FormLabel>Popis videa</FormLabel>
+        <Textarea placeholder="Popis videa" />
+      </FormControl>
+      <FormControl mt={4}>
+        <FormLabel>Odkaz na video</FormLabel>
+        <Input placeholder="Odkaz na YouTube video" />
+      </FormControl>
+      <FormControl mt={4}>
+      <FormLabel>Náhled videa</FormLabel>
+      <Input placeholder="Odkaz na náhled videa" onChange={handleThumbnailUrlChange} />
+      {thumbnailUrl && <Image src={thumbnailUrl} alt="Video thumbnail" />}
+    </FormControl>
+    </ModalBody>
+    <ModalFooter>
+      <Button colorScheme="blue" mr={3} onClick={onClose}>
+        Upload
+      </Button>
+      <Button variant="ghost" onClick={onClose}>Cancel</Button>
+    </ModalFooter>
+  </ModalContent>
+</Modal>
+</>
+  )}
