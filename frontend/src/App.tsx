@@ -1,6 +1,7 @@
 import { ChakraProvider, Box } from '@chakra-ui/react'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+
 import Navbar from "./components/navbar"
 import Home from "./pages/home";
 import Dashboard from "./pages/ControlPanel"

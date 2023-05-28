@@ -1,7 +1,13 @@
-import logo from "../assets/logo/logo.png";
-// ---------------------------------------//
+import myImage from "../assets/images/blackscreen.png";
 
+import {
+  // ostatní importy ...
+  Image,
+} from '@chakra-ui/react';
+
+import logo from "../assets/logo/logo.png";
 import { ReactNode } from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Flex,
@@ -19,6 +25,17 @@ import {
   useDisclosure,
   useColorModeValue,
   Stack,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  FormControl,
+  FormLabel,
+  Input,
+  Textarea
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, AddIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 
@@ -42,6 +59,16 @@ const NavLink = ({ children }: { children: ReactNode }) => (
 export default function withAction() {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  
+
+  const [thumbnailUrl, setThumbnailUrl] = useState<string>(myImage);
+
+  
+  const handleThumbnailUrlChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setThumbnailUrl(event.target.value);
+  };
+
+
 
   return (
     <>
@@ -55,7 +82,7 @@ export default function withAction() {
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack spacing={8} alignItems={'center'}>
-            <Box>  <img src={logo} alt="Company logo" style={{width: "77px", height: "77px"}} /> </Box>
+            <Box>  <img src={logo} alt="Company logo" style={{width: "65px", height: "65px"}} /> </Box>
             <HStack
               as={'nav'}
               spacing={4}
@@ -75,9 +102,11 @@ export default function withAction() {
               colorScheme={'teal'}
               size={'sm'}
               mr={4}
-              leftIcon={<AddIcon />}>
+              leftIcon={<AddIcon />}
+              onClick={onOpen}>
               Upload
             </Button>
+
             <Button 
               onClick={toggleColorMode}
               variant={'solid'}
@@ -124,6 +153,39 @@ export default function withAction() {
           </Box>
         ) : null}
       </Box>
-    </>
-  );
-}
+      
+      
+      <Modal isOpen={isOpen} onClose={onClose}>
+  <ModalOverlay bg="blackAlpha.800" />
+  <ModalContent>
+    <ModalHeader>Nahrání videa:</ModalHeader>
+    <ModalCloseButton />
+    <ModalBody>
+      <FormControl>
+        <FormLabel>Název videa</FormLabel>
+        <Input placeholder="Název videa" />
+      </FormControl>
+      <FormControl mt={4}>
+        <FormLabel>Popis videa</FormLabel>
+        <Textarea placeholder="Popis videa" />
+      </FormControl>
+      <FormControl mt={4}>
+        <FormLabel>Odkaz na video</FormLabel>
+        <Input placeholder="Odkaz na YouTube video" />
+      </FormControl>
+      <FormControl mt={4}>
+      <FormLabel>Náhled videa</FormLabel>
+      <Input placeholder="Odkaz na náhled videa" onChange={handleThumbnailUrlChange} />
+      {thumbnailUrl && <Image src={thumbnailUrl} alt="Video thumbnail" />}
+    </FormControl>
+    </ModalBody>
+    <ModalFooter>
+      <Button colorScheme="blue" mr={3} onClick={onClose}>
+        Upload
+      </Button>
+      <Button variant="ghost" onClick={onClose}>Cancel</Button>
+    </ModalFooter>
+  </ModalContent>
+</Modal>
+</>
+  )}
