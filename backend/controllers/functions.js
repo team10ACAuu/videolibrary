@@ -1,5 +1,3 @@
-//TODO Vyresit id system
-
 require('dotenv').config();
 const Video = require('../models/videosSchema');
 const mongoose = require('mongoose');
@@ -7,39 +5,27 @@ const mongoose = require('mongoose');
 const createVideo = async (req, res) => {
     const {
         id,
-        nameOfThisVideo, 
-        episode, 
+        title, 
         link, 
         topic, 
         description, 
-        duration, 
-        difficulty, 
         ratingsAverage,
         creator,
         creationDate,
-        price,
-        summary,
-        imageCover,
-        images
+        thumbnail,
     } = req.body;
 
     try {
         const video = await Video.create({
             id,
-            nameOfThisVideo, 
-            episode, 
+            title, 
             link, 
             topic, 
             description, 
-            duration, 
-            difficulty, 
             ratingsAverage,
             creator,
             creationDate,
-            price,
-            summary,
-            imageCover,
-            images
+            thumbnail,
         });
         res.status(200).json(video);
     } catch (error) {
