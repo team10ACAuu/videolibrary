@@ -25,20 +25,29 @@ const Home = () => {
 
     const VIDEOS: object[] = [];
     (Object.keys(videosData) as (keyof typeof videosData)[]).forEach((video, index) => {
-        let ATTRIBUTES: string[] = [];
-        Object.keys(videosData[video]).forEach(attribute => {
-            ATTRIBUTES.push(videosData[video][attribute]);
+
+        const videosdata: { [key: string]: any } = videosData[video];
+
+        let attributes: string[] = [];
+        Object.keys(videosData[video]).forEach(att => {
+            attributes.push(videosData[video][att]);
         });
+
+        const imageCover = videosdata.imageCover ? videosdata.imageCover : "https://siparekraf.kamparkab.go.id/assets/images/no-image.png";
+        const title = videosdata.title ? videosdata.title : "Tiulek není k dispozici";
+        const description = videosdata.description ? videosdata.description : "Popis není k dispozici";
+
         VIDEOS.push(
             <Card
             key={index}
-                thumbnail={ATTRIBUTES[13]}
-                title={ATTRIBUTES[3]}
-                description={ATTRIBUTES[5]}
+                thumbnail={imageCover}
+                title={title}
+                description={description}
             />
         );
-        ATTRIBUTES = [];
+        attributes = [];
     });
+    
     return ( 
         <>
             {
