@@ -40,7 +40,7 @@ const getVideo = async (req, res) => {
   
     const video = await Video.find({id: id}).exec()
   
-    if (!video) {
+    if (!video || video.length === 0) {
       return res.status(404).json({error: 'No such video'})
     }
   
