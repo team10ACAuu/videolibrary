@@ -59,6 +59,7 @@ const NavLink = ({ children }: { children: ReactNode }) => (
 export default function withAction() {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen: uloadFormIsOpen, onOpen: uloadFormOnOpen, onClose: uloadFormOnClose } = useDisclosure();
   
 
   const [thumbnailUrl, setThumbnailUrl] = useState<string>(myImage);
@@ -103,7 +104,7 @@ export default function withAction() {
               size={'sm'}
               mr={4}
               leftIcon={<AddIcon />}
-              onClick={onOpen}>
+              onClick={uloadFormIsOpen ? uloadFormOnClose : uloadFormOnOpen}>
               Upload
             </Button>
 
@@ -155,37 +156,37 @@ export default function withAction() {
       </Box>
       
       
-      <Modal isOpen={isOpen} onClose={onClose}>
-  <ModalOverlay bg="blackAlpha.800" />
-  <ModalContent>
-    <ModalHeader>Nahrání videa:</ModalHeader>
-    <ModalCloseButton />
-    <ModalBody>
-      <FormControl>
-        <FormLabel>Název videa</FormLabel>
-        <Input placeholder="Název videa" />
-      </FormControl>
-      <FormControl mt={4}>
-        <FormLabel>Popis videa</FormLabel>
-        <Textarea placeholder="Popis videa" />
-      </FormControl>
-      <FormControl mt={4}>
-        <FormLabel>Odkaz na video</FormLabel>
-        <Input placeholder="Odkaz na YouTube video" />
-      </FormControl>
-      <FormControl mt={4}>
-      <FormLabel>Náhled videa</FormLabel>
-      <Input placeholder="Odkaz na náhled videa" onChange={handleThumbnailUrlChange} />
-      {thumbnailUrl && <Image src={thumbnailUrl} alt="Video thumbnail" />}
-    </FormControl>
-    </ModalBody>
-    <ModalFooter>
-      <Button colorScheme="blue" mr={3} onClick={onClose}>
-        Upload
-      </Button>
-      <Button variant="ghost" onClick={onClose}>Cancel</Button>
-    </ModalFooter>
-  </ModalContent>
-</Modal>
-</>
-  )}
+    <Modal isOpen={uloadFormIsOpen} onClose={uloadFormOnClose}>
+      <ModalOverlay bg="blackAlpha.800" />
+      <ModalContent>
+        <ModalHeader>Nahrání videa:</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody>
+          <FormControl>
+            <FormLabel>Název videa</FormLabel>
+            <Input placeholder="Název videa" />
+          </FormControl>
+          <FormControl mt={4}>
+            <FormLabel>Popis videa</FormLabel>
+            <Textarea placeholder="Popis videa" />
+          </FormControl>
+          <FormControl mt={4}>
+            <FormLabel>Odkaz na video</FormLabel>
+            <Input placeholder="Odkaz na YouTube video" />
+          </FormControl>
+          <FormControl mt={4}>
+          <FormLabel>Náhled videa</FormLabel>
+          <Input placeholder="Odkaz na náhled videa" onChange={handleThumbnailUrlChange} />
+          {thumbnailUrl && <Image src={thumbnailUrl} alt="Video thumbnail" />}
+        </FormControl>
+        </ModalBody>
+        <ModalFooter>
+          <Button colorScheme="blue" mr={3} onClick={onClose}>
+            Upload
+          </Button>
+          <Button variant="ghost" onClick={onClose}>Cancel</Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
+  </>
+)}

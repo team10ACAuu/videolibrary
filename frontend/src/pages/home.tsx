@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+
 import Card from "../components/card"
 
 const Home = () => {
@@ -33,21 +34,23 @@ const Home = () => {
             attributes.push(videosData[video][att]);
         });
 
-        const imageCover = videosdata.imageCover ? videosdata.imageCover : "https://siparekraf.kamparkab.go.id/assets/images/no-image.png";
+        const thumbnail = videosdata.thumbnail ? videosdata.thumbnail : "https://siparekraf.kamparkab.go.id/assets/images/no-image.png";
         const title = videosdata.title ? videosdata.title : "Tiulek není k dispozici";
         const description = videosdata.description ? videosdata.description : "Popis není k dispozici";
+        const videoId = videosdata.link ? videosdata.link : 'N1QStjH1rVI'
 
         VIDEOS.push(
             <Card
             key={index}
-                thumbnail={imageCover}
+                thumbnail={thumbnail}
                 title={title}
                 description={description}
+                videoId={videoId}
             />
         );
         attributes = [];
     });
-    
+
     return ( 
         <>
             {
