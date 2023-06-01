@@ -37,15 +37,15 @@ const Home = () => {
         const thumbnail = videosdata.thumbnail ? videosdata.thumbnail : "https://siparekraf.kamparkab.go.id/assets/images/no-image.png";
         const title = videosdata.title ? videosdata.title : "Tiulek není k dispozici";
         const description = videosdata.description ? videosdata.description : "Popis není k dispozici";
-        const videoId = videosdata.link ? videosdata.link : 'N1QStjH1rVI'
-
+        const id = videosdata.id ? videosdata.id : '0'
+        console.log(id)
         VIDEOS.push(
             <Card
             key={index}
                 thumbnail={thumbnail}
                 title={title}
                 description={description}
-                videoId={videoId}
+                id={id}
             />
         );
         attributes = [];

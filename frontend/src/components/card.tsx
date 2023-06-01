@@ -4,9 +4,9 @@ interface cardAttributes {
     thumbnail : string,
     title : string,
     description : string,
-    videoId: string
+    id: string
 }
-const Upload: React.FC<cardAttributes> = ({ thumbnail, title, description, videoId}) => {
+const Upload: React.FC<cardAttributes> = ({ thumbnail, title, description, id}) => {
     return ( 
         <>
             <Card maxW='sm'>
@@ -31,7 +31,7 @@ const Upload: React.FC<cardAttributes> = ({ thumbnail, title, description, video
                     <Button variant='solid' colorScheme='red'     
                     onClick={(e) => {
                         e.preventDefault();
-                        window.location.href='http://127.0.0.1:5173/video?videoId='+videoId;
+                        window.location.href='http://127.0.0.1:5173/video?id='+id;
                     }}>
                         Paly now
                     </Button>
