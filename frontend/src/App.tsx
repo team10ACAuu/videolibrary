@@ -11,6 +11,10 @@ import Card from "./components/card"
 import Video from "./pages/video"
 import YT from "./components/ytplayer"
 
+
+
+
+
 function App() {
   const videoUrl = 'file:///C:/xampp/htdocs/projects/nodejs/video_library_project/frontend/video_library/src/assets/video/SampleVideo_1280x720_1mb.mp4';
   return (
@@ -50,7 +54,7 @@ function App() {
                   />
                 } 
               />
-              <Route 
+                            <Route 
                 path="/video" 
                 element={<Video />} 
               />
@@ -66,3 +70,5 @@ function App() {
 }
 
 export default App
+
+
