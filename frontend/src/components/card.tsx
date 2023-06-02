@@ -33,7 +33,7 @@ const Upload: React.FC<cardAttributes> = ({ thumbnail, title, description, id}) 
                         e.preventDefault();
                         window.location.href='http://localhost:5173/video?id='+id;
                     }}>
-                        Paly now
+                        Play now
                     </Button>
                     </ButtonGroup>
                 </CardFooter>
