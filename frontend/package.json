@@ -16,6 +16,8 @@
     "@emotion/styled": "^11.10.6",
     "@types/react": "^18.2.7",
     "@types/react-youtube": "^7.10.0",
+    "axios": "^1.4.0",
+    "formik": "^2.4.1",
     "framer-motion": "^10.12.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

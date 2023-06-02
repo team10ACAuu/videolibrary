@@ -31,7 +31,7 @@ const Upload: React.FC<cardAttributes> = ({ thumbnail, title, description, id}) 
                     <Button variant='solid' colorScheme='red'     
                     onClick={(e) => {
                         e.preventDefault();
-                        window.location.href='http://127.0.0.1:5173/video?id='+id;
+                        window.location.href='http://localhost:5173/video?id='+id;
                     }}>
                         Paly now
                     </Button>

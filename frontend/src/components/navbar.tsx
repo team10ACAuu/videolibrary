@@ -1,5 +1,6 @@
 import myImage from "../assets/images/blackscreen.png";
 
+
 import {
   // ostatní importy ...
   Image,
@@ -70,6 +71,79 @@ export default function withAction() {
   };
 
 
+  const [videoTitle, setVideoTitle] = useState('');
+  const [videoDescription, setVideoDescription] = useState('');
+  const [videoUrl, setVideoUrl] = useState('');
+
+  // Funkce pro změnu stavu
+  const handleVideoTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setVideoTitle(event.target.value);
+  };
+  const handleVideoDescriptionChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setVideoDescription(event.target.value);
+  };
+  const handleVideoUrlChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setVideoUrl(event.target.value);
+  };
+
+ 
+  
+  // Funkce pro odeslání dat na server
+  
+  const handleUpload = async () => {
+    const videoId = Math.floor(Math.random() * 10000);
+      
+    
+    
+    // Extrahování videoId z odkazu na YouTube
+      let youtubeVideoId = videoUrl.split('v=')[1];
+      const ampersandPosition = youtubeVideoId.indexOf('&');
+      if (ampersandPosition !== -1) {
+        youtubeVideoId = youtubeVideoId.substring(0, ampersandPosition);
+      }
+    
+    
+    
+      try {
+      const response = await fetch('http://localhost:5173/api', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id: videoId ,
+          title: videoTitle, 
+          link: youtubeVideoId, 
+          topic: 'test', 
+          description: videoDescription, 
+          ratingsAverage: '0',
+          creator: 'Admin',
+          creationDate: new Date(),
+          thumbnail: thumbnailUrl,
+          
+        }),
+      });
+      const data = await response.json();
+      console.log(data);
+
+
+      //restartování modalu při uploadu
+      uloadFormOnClose();
+      resetForm();
+
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+  const resetForm = () => {
+    setVideoTitle('');
+    setVideoDescription('');
+    setVideoUrl('');
+    setThumbnailUrl(myImage);
+  };
+
+
+
 
   return (
     <>
@@ -83,7 +157,15 @@ export default function withAction() {
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack spacing={8} alignItems={'center'}>
-            <Box>  <img src={logo} alt="Company logo" style={{width: "65px", height: "65px"}} /> </Box>
+          <Box>
+            <img 
+              src={logo} 
+              alt="Company logo" 
+              style={{width: "65px", height: "65px", cursor: "pointer"}} 
+              onClick={() => window.location.href="/"}
+            />
+          </Box>
+
             <HStack
               as={'nav'}
               spacing={4}
@@ -156,35 +238,35 @@ export default function withAction() {
       </Box>
       
       
-    <Modal isOpen={uloadFormIsOpen} onClose={uloadFormOnClose}>
-      <ModalOverlay bg="blackAlpha.800" />
-      <ModalContent>
-        <ModalHeader>Nahrání videa:</ModalHeader>
-        <ModalCloseButton />
-        <ModalBody>
-          <FormControl>
-            <FormLabel>Název videa</FormLabel>
-            <Input placeholder="Název videa" />
-          </FormControl>
-          <FormControl mt={4}>
-            <FormLabel>Popis videa</FormLabel>
-            <Textarea placeholder="Popis videa" />
-          </FormControl>
-          <FormControl mt={4}>
-            <FormLabel>Odkaz na video</FormLabel>
-            <Input placeholder="Odkaz na YouTube video" />
-          </FormControl>
-          <FormControl mt={4}>
-          <FormLabel>Náhled videa</FormLabel>
-          <Input placeholder="Odkaz na náhled videa" onChange={handleThumbnailUrlChange} />
-          {thumbnailUrl && <Image src={thumbnailUrl} alt="Video thumbnail" />}
-        </FormControl>
-        </ModalBody>
-        <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={onClose}>
-            Upload
-          </Button>
-          <Button variant="ghost" onClick={onClose}>Cancel</Button>
+      <Modal isOpen={uloadFormIsOpen} onClose={uloadFormOnClose}>
+  <ModalOverlay bg="blackAlpha.800" />
+  <ModalContent>
+    <ModalHeader>Nahrání videa:</ModalHeader>
+    <ModalCloseButton />
+    <ModalBody>
+      <FormControl>
+        <FormLabel>Název videa</FormLabel>
+        <Input placeholder="Název videa" onChange={handleVideoTitleChange} />
+      </FormControl>
+      <FormControl mt={4}>
+        <FormLabel>Popis videa</FormLabel>
+        <Textarea placeholder="Popis videa" onChange={handleVideoDescriptionChange} />
+      </FormControl>
+      <FormControl mt={4}>
+        <FormLabel>Odkaz na video</FormLabel>
+        <Input placeholder="Odkaz na YouTube video" onChange={handleVideoUrlChange} />
+      </FormControl>
+      <FormControl mt={4}>
+        <FormLabel>Náhled videa</FormLabel>
+        <Input placeholder="Odkaz na náhled videa" onChange={handleThumbnailUrlChange} />
+        {thumbnailUrl && <Image src={thumbnailUrl} alt="Video thumbnail" />}
+      </FormControl>
+    </ModalBody>
+    <ModalFooter>
+      <Button colorScheme="blue" mr={3} onClick={handleUpload}>
+        Upload
+      </Button>
+      <Button variant="ghost" onClick={uloadFormOnClose}>Cancel</Button>
         </ModalFooter>
       </ModalContent>
     </Modal>
