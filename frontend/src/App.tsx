@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/navbar"
 import Home from "./pages/home";
 import Dashboard from "./pages/ControlPanel"
-import VideoJS from "./pages/VideoJS";
+import About from "./pages/AboutUs";
 import Upload from "./pages/upload"
 import Card from "./components/card"
 import Video from "./pages/video"
@@ -16,7 +16,6 @@ import YT from "./components/ytplayer"
 
 
 function App() {
-  const videoUrl = 'file:///C:/xampp/htdocs/projects/nodejs/video_library_project/frontend/video_library/src/assets/video/SampleVideo_1280x720_1mb.mp4';
   return (
     <ChakraProvider>
       <Navbar/>
@@ -30,9 +29,7 @@ function App() {
               <Route 
                 path="/about" 
                 element={
-                  <VideoJS 
-                    source={videoUrl} 
-                  />
+                  <About />
                 } 
               />
               <Route 
