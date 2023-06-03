@@ -6,20 +6,41 @@ const authors = [
     name: 'David R.',
     image: './src/assets/images/david-avatar',
     role: 'CEO',
+
   },
   {
     name: 'Jaroslav M.',
     image: '',
     role: 'CEO',
+
   },
-  // další autoři...
+  {
+    name: 'Robert A.',
+    image: '',
+    role: 'CEO',
+
+  },
+  {
+    name: 'Martin V.',
+    image: '',
+    role: 'CEO',
+
+  },
 ];
 
 const AboutUs = () => (
   <Box p={5}>
     <Flex justify="space-around" wrap="wrap">
       {authors.map((author, index) => (
-        <Box key={index} textAlign="center" m={3}>
+        <Box
+          key={index}
+          textAlign="center"
+          m={3}
+          p={5}
+          borderRadius="lg"
+          boxShadow="lg"
+          bg="black"
+        >
           <Avatar size="2xl" name={author.name} src={author.image} />
           <Text mt={2} fontSize="xl" fontWeight="bold">
             {author.name}
