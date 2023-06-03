@@ -6,10 +6,6 @@ import AboutUs from "./pages/AboutUs";
 import Navbar from "./components/navbar"
 import Home from "./pages/home";
 import Dashboard from "./pages/ControlPanel"
-<<<<<<< HEAD
-=======
-import About from "./pages/AboutUs";
->>>>>>> ts-ftontend
 import Upload from "./pages/upload"
 import Card from "./components/card"
 import Video from "./pages/video"
@@ -33,13 +29,7 @@ function App() {
               />
             <Route  
                 path="/about" 
-<<<<<<< HEAD
                 element={<AboutUs />} 
-=======
-                element={
-                  <About />
-                } 
->>>>>>> ts-ftontend
               />
 
               <Route 
