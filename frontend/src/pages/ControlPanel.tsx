@@ -2,142 +2,136 @@ import { useState } from 'react';
 import { Box, Table, Thead, Tr, Th, Tbody, Td } from "@chakra-ui/react";
 
 import {
-    Stack,
-    Input,
-    IconButton,
-    Editable,
-    EditableTextarea,
-    EditablePreview,
-    Tabs, TabList, TabPanels, Tab, TabPanel
-  } from '@chakra-ui/react'
+  Stack,
+  Input,
+  IconButton,
+  Editable, EditableTextarea, EditablePreview,
+  Tabs, TabList, TabPanels, Tab, TabPanel
+} from '@chakra-ui/react'
 import { CheckIcon, SearchIcon } from '@chakra-ui/icons';
 
 const ControlPanel = () => {
-    const [videoId, setVideoId] = useState("");
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [topic, setTopic] = useState("");
-    const [link, setLink] = useState("");
-    const [thumbnail, setThumbnail] = useState("");
-    const [videosData, setVideosData] = useState(
-        [
-          {
-            link: '',
-            thumbnail: '',
-            title: 'Titulek není k dispozici',
-            description: '',
-            topic: ''
-          }
-        ]
-    );
-
-    const getVideo = () => {
-        const fetchVideoData = async () => {
-          const response = await fetch('/api/'+videoId)
-          //console.table(response);
-          const json = await response.json()
-          if(response.ok) {
-            setVideosData(json)
-            }
-          }
+  const [videoId, setVideoId] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [topic, setTopic] = useState("");
+  const [link, setLink] = useState("");
+  const [thumbnail, setThumbnail] = useState("");
+  const [videosData, setVideosData] = useState([
+    {
+      link: '',
+      thumbnail: '',
+      title: 'Titulek není k dispozici',
+      description: 'Popis není k dispozici',
+      topic: 'Téma není k dispozici'
+    }
+  ]);
     
-          try {
-            fetchVideoData()
-          }
-          catch {
-            console.log("Can't reach /")
-          }
-          fetchVideoData();
-    };
+    //const tit = useRef('')
 
-    const patchVideo = async () => {
-          try {
-          const response = await fetch('http://localhost:5173/api/'+videoId, {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              id: videoId ,
-              title: title, 
-              link: link, 
-              topic: topic, 
-              description: description, 
-              thumbnail: thumbnail,
-              
-            }),
-          });
-          const data = await response.json();
-          console.log(data);
-
+  const getVideo = () => {
+    const fetchVideoData = async () => {
+    const response = await fetch('/api/'+videoId)
+    //console.table(response);
+    const json = await response.json()
+    if(response.ok) {
+      setVideosData(json)
+      }
+    }
     
-        } catch (error) {
-          console.error("Error:", error);
-        }
-    };
+    try {
+      fetchVideoData()
+    }
+    catch {
+      console.log("Can't reach /")
+    }
+    fetchVideoData();
+  };
 
-    console.log(title, description);
+  const patchVideo = async () => {
+    try {
+      const response = await fetch('http://localhost:5173/api/'+videoId, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: videoId ,
+        title: title, 
+        link: link, 
+        topic: topic, 
+        description: description, 
+        thumbnail: thumbnail, 
+        }),
+      });
+      const data = await response.json();
+      console.log(data);
 
-    return ( 
-        <>
-          <Stack spacing={3}>
-            <Input onChange={(e) => setVideoId(e.target.value)} placeholder='id' size='md' />
-            <IconButton onClick={getVideo} aria-label='Search database' icon={<SearchIcon />} />
-            <Tabs variant='enclosed'>
-              <TabList>
-                <Tab>Vlastnosti</Tab>
-                <Tab>Úpravy</Tab>
-              </TabList>
-              <TabPanels>
-              <TabPanel>
-        <Box boxSize="small">
-        <img src="path/to/your/image.jpg" alt="Description" />
-        </Box>
-        <Table variant="simple">
-          <Thead>
-            <Tr>
-              <Th>Název</Th>
-              <Th>Popisek</Th>
-              <Th>Odkaz</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            <Tr>
-              <Td>{videosData[0].title}</Td>
-              <Td>{videosData[0].description}</Td>
-              <Td>{videosData[0].link}</Td>
-            </Tr>
-          </Tbody>
-        </Table>
-      </TabPanel>
-                <TabPanel>
-                  <Editable onChange={setTitle} placeholder={videosData[0].title}>
-                      <EditablePreview />
-                      <EditableTextarea />
-                  </Editable>
-                  <Editable onChange={setDescription} placeholder={videosData[0].description}>
-                      <EditablePreview />
-                      <EditableTextarea />
-                  </Editable>
-                  <Editable onChange={setTopic} defaultValue={videosData[0].topic} placeholder={videosData[0].topic}>
-                      <EditablePreview />
-                      <EditableTextarea />
-                  </Editable>
-                  <Editable onChange={setLink} defaultValue={videosData[0].link} placeholder={videosData[0].link}>
-                      <EditablePreview />
-                      <EditableTextarea />
-                  </Editable>
-                  <Editable onChange={setThumbnail} defaultValue={videosData[0].thumbnail} placeholder={videosData[0].thumbnail}>
-                      <EditablePreview />
-                      <EditableTextarea />
-                  </Editable>
-                  <IconButton onClick={patchVideo} aria-label='Search database' icon={<CheckIcon />} />
-                </TabPanel>
-              </TabPanels>
-            </Tabs>
-          </Stack>
-        </> 
-    );
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  return ( 
+    <>
+      <Stack spacing={3}>
+        <Input onChange={(e) => setVideoId(e.target.value)} placeholder='id' size='md' />
+        <IconButton onClick={getVideo} aria-label='Search database' icon={<SearchIcon />} />
+        <Tabs variant='enclosed'>
+          <TabList>
+            <Tab>Vlastnosti</Tab>
+            <Tab>Úpravy</Tab>
+          </TabList>
+          <TabPanels>
+          <TabPanel>
+            <Box boxSize="small">
+              <img src="path/to/your/image.jpg" alt="Description" />
+            </Box>
+          <Table variant="simple">
+                <Thead>
+                  <Tr>
+                    <Th>Název</Th>
+                    <Th>Popisek</Th>
+                    <Th>Odkaz</Th>
+                  </Tr>
+                </Thead>
+              <Tbody>
+                <Tr>
+                  <Td>{videosData[0].title}</Td>
+                  <Td>{videosData[0].description}</Td>
+                  <Td>{videosData[0].link}</Td>
+                </Tr>
+              </Tbody>
+          </Table>
+          </TabPanel>
+            <TabPanel>
+              <Editable onChange={setTitle} placeholder={videosData[0].title}>
+                <EditablePreview />
+                <EditableTextarea />
+              </Editable>
+              <Editable onChange={setDescription} placeholder={videosData[0].description}>
+                <EditablePreview />
+                <EditableTextarea />
+              </Editable>
+              <Editable onChange={setTopic} defaultValue={videosData[0].topic} placeholder={videosData[0].topic}>
+                <EditablePreview />
+                <EditableTextarea />
+              </Editable>
+              <Editable onChange={setLink} defaultValue={videosData[0].link} placeholder={videosData[0].link}>
+                <EditablePreview />
+                <EditableTextarea />
+              </Editable>
+              <Editable onChange={setThumbnail} defaultValue={videosData[0].thumbnail} placeholder={videosData[0].thumbnail}>
+                <EditablePreview />
+                <EditableTextarea />
+              </Editable>
+              <IconButton onClick={patchVideo} aria-label='Search database' icon={<CheckIcon />} />
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+      </Stack>
+    </> 
+  );
 }
  
 export default ControlPanel;
