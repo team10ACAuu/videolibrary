@@ -7,6 +7,7 @@ import {
     Editable,
     EditableTextarea,
     EditablePreview,
+    Tabs, TabList, TabPanels, Tab, TabPanel
   } from '@chakra-ui/react'
 import { CheckIcon, SearchIcon } from '@chakra-ui/icons';
 
@@ -78,31 +79,44 @@ const ControlPanel = () => {
 
     return ( 
         <>
-            <Stack spacing={3}>
-                <Input onChange={(e) => setVideoId(e.target.value)} placeholder='id' size='md' />
-                <IconButton onClick={getVideo} aria-label='Search database' icon={<SearchIcon />} />
-                <Editable onChange={setTitle} defaultValue={videosData[0].title} value={title}>
-                    <EditablePreview />
-                    <EditableTextarea />
-                </Editable>
-                <Editable defaultValue={videosData[0].description} value={videosData[0].description}>
-                    <EditablePreview />
-                    <EditableTextarea />
-                </Editable>
-                <Editable  defaultValue={videosData[0].topic} value={videosData[0].topic}>
-                    <EditablePreview />
-                    <EditableTextarea />
-                </Editable>
-                <Editable defaultValue={videosData[0].link} value={videosData[0].link}>
-                    <EditablePreview />
-                    <EditableTextarea />
-                </Editable>
-                <Editable defaultValue={videosData[0].thumbnail} value={videosData[0].thumbnail}>
-                    <EditablePreview />
-                    <EditableTextarea />
-                </Editable>
-                <IconButton onClick={patchVideo} aria-label='Search database' icon={<CheckIcon />} />
-            </Stack>
+          <Stack spacing={3}>
+            <Input onChange={(e) => setVideoId(e.target.value)} placeholder='id' size='md' />
+            <IconButton onClick={getVideo} aria-label='Search database' icon={<SearchIcon />} />
+            <Tabs variant='enclosed'>
+              <TabList>
+                <Tab>Vlastnosti</Tab>
+                <Tab>Úpravy</Tab>
+              </TabList>
+              <TabPanels>
+                <TabPanel>
+                  <p>one!</p>
+                </TabPanel>
+                <TabPanel>
+                  <Editable onChange={setTitle} defaultValue={videosData[0].title} value={title}>
+                      <EditablePreview />
+                      <EditableTextarea />
+                  </Editable>
+                  <Editable defaultValue={videosData[0].description} value={videosData[0].description}>
+                      <EditablePreview />
+                      <EditableTextarea />
+                  </Editable>
+                  <Editable  defaultValue={videosData[0].topic} value={videosData[0].topic}>
+                      <EditablePreview />
+                      <EditableTextarea />
+                  </Editable>
+                  <Editable defaultValue={videosData[0].link} value={videosData[0].link}>
+                      <EditablePreview />
+                      <EditableTextarea />
+                  </Editable>
+                  <Editable defaultValue={videosData[0].thumbnail} value={videosData[0].thumbnail}>
+                      <EditablePreview />
+                      <EditableTextarea />
+                  </Editable>
+                  <IconButton onClick={patchVideo} aria-label='Search database' icon={<CheckIcon />} />
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
+          </Stack>
         </> 
     );
 }
