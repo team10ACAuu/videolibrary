@@ -20,7 +20,6 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  MenuDivider,
   useColorMode,
   useDisclosure,
   useColorModeValue,
@@ -103,6 +102,7 @@ export default function withAction() {
   };
 
   // Funkce pro odeslání dat na server
+<<<<<<< HEAD
 
   const handleUpload = async () => {
     const videoId = Math.floor(Math.random() * 10000);
@@ -117,6 +117,21 @@ export default function withAction() {
     try {
       const response = await fetch("http://localhost:5173/api", {
         method: "POST",
+=======
+  const handleUpload = async () => {
+    const videoId = Math.floor(Math.random() * 10000);
+    
+    // Extrahování videoId z odkazu na YouTube
+      let youtubeVideoId = videoUrl.split('v=')[1];
+      const ampersandPosition = youtubeVideoId.indexOf('&');
+      if (ampersandPosition !== -1) {
+        youtubeVideoId = youtubeVideoId.substring(0, ampersandPosition);
+      }
+    
+      try {
+      const response = await fetch('http://localhost:5173/api', {
+        method: 'POST',
+>>>>>>> ts-ftontend
         headers: {
           "Content-Type": "application/json",
         },
@@ -158,7 +173,11 @@ export default function withAction() {
         top={0}
         zIndex={1}
       >
+<<<<<<< HEAD
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
+=======
+        <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
+>>>>>>> ts-ftontend
           <IconButton
             size={"md"}
             icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
@@ -225,12 +244,16 @@ export default function withAction() {
                 />
               </MenuButton>
               <MenuList>
+<<<<<<< HEAD
                 <MenuItem>My videos</MenuItem>
                 <MenuItem>
                   <Link href={"/dashboard"}>Dashboard</Link>
                 </MenuItem>
                 <MenuDivider />
                 <MenuItem>Log out</MenuItem>
+=======
+                <MenuItem><Link href={'/dashboard'}>Dashboard</Link></MenuItem>
+>>>>>>> ts-ftontend
               </MenuList>
             </Menu>
           </Flex>

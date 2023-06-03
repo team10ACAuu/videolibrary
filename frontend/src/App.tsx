@@ -6,6 +6,10 @@ import AboutUs from "./pages/AboutUs";
 import Navbar from "./components/navbar"
 import Home from "./pages/home";
 import Dashboard from "./pages/ControlPanel"
+<<<<<<< HEAD
+=======
+import About from "./pages/AboutUs";
+>>>>>>> ts-ftontend
 import Upload from "./pages/upload"
 import Card from "./components/card"
 import Video from "./pages/video"
@@ -17,7 +21,6 @@ import YT from "./components/ytplayer"
 
 
 function App() {
-  const videoUrl = 'file:///C:/xampp/htdocs/projects/nodejs/video_library_project/frontend/video_library/src/assets/video/SampleVideo_1280x720_1mb.mp4';
   return (
     <ChakraProvider>
       <Navbar/>
@@ -30,7 +33,13 @@ function App() {
               />
             <Route  
                 path="/about" 
+<<<<<<< HEAD
                 element={<AboutUs />} 
+=======
+                element={
+                  <About />
+                } 
+>>>>>>> ts-ftontend
               />
 
               <Route 
