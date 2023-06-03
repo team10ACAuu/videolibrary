@@ -14,6 +14,10 @@ import { CheckIcon, SearchIcon } from '@chakra-ui/icons';
 const ControlPanel = () => {
     const [videoId, setVideoId] = useState("");
     const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [topic, setTopic] = useState("");
+    const [link, setLink] = useState("");
+    const [thumbnail, setThumbnail] = useState("");
     const [videosData, setVideosData] = useState(
         [
           {
@@ -45,23 +49,20 @@ const ControlPanel = () => {
           fetchVideoData();
     };
 
-    const handleUpload = async () => {
+    const patchVideo = async () => {
           try {
-          const response = await fetch('http://localhost:5173/api', {
-            method: 'POST',
+          const response = await fetch('http://localhost:5173/api/'+videoId, {
+            method: 'PATCH',
             headers: {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
               id: videoId ,
-              title: 'videoTitle', 
-              link: 'youtubeVideoId', 
-              topic: 'test', 
-              description: 'videoDescription', 
-              ratingsAverage: '0',
-              creator: 'Admin',
-              creationDate: new Date(),
-              thumbnail: 'thumbnailUrl',
+              title: title, 
+              link: link, 
+              topic: topic, 
+              description: description, 
+              thumbnail: thumbnail,
               
             }),
           });
@@ -73,9 +74,8 @@ const ControlPanel = () => {
           console.error("Error:", error);
         }
     };
-    const patchVideo = () => {};
 
-    console.log(title);
+    console.log(title, description);
 
     return ( 
         <>
@@ -96,19 +96,19 @@ const ControlPanel = () => {
                       <EditablePreview />
                       <EditableTextarea />
                   </Editable>
-                  <Editable defaultValue={videosData[0].description} placeholder={videosData[0].description}>
+                  <Editable onChange={setDescription} placeholder={videosData[0].description}>
                       <EditablePreview />
                       <EditableTextarea />
                   </Editable>
-                  <Editable  defaultValue={videosData[0].topic} placeholder={videosData[0].topic}>
+                  <Editable onChange={setTopic} defaultValue={videosData[0].topic} placeholder={videosData[0].topic}>
                       <EditablePreview />
                       <EditableTextarea />
                   </Editable>
-                  <Editable defaultValue={videosData[0].link} placeholder={videosData[0].link}>
+                  <Editable onChange={setLink} defaultValue={videosData[0].link} placeholder={videosData[0].link}>
                       <EditablePreview />
                       <EditableTextarea />
                   </Editable>
-                  <Editable defaultValue={videosData[0].thumbnail} placeholder={videosData[0].thumbnail}>
+                  <Editable onChange={setThumbnail} defaultValue={videosData[0].thumbnail} placeholder={videosData[0].thumbnail}>
                       <EditablePreview />
                       <EditableTextarea />
                   </Editable>
