@@ -48,9 +48,18 @@ const MyComponent = () => {
   return (
     <>
       {<YTplayer videoId={videosData[0].link} />}
-      {videosData[0].title}
-      <br />
-      {videosData[0].description}
+      <div style={{
+        backgroundColor: '#00', 
+        borderRadius: '10px', 
+        padding: '20px', 
+        marginTop: '-5px', 
+        boxShadow: '0px 5px 15px rgba(0,0,0,0.1)'
+      }}>
+        <h2 style={{marginBottom: '22px', fontSize: '28px', color: '#C0C0F2'}}>{videosData[0].title}</h2>
+        <div style={{padding: '10px', backgroundColor:'#7373E3',  borderRadius: '10px'}}>
+          <p style={{color: '#171717'}}>{videosData[0].description}</p>
+        </div>
+      </div>
     </>
   );
 }
