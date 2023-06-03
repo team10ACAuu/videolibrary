@@ -2,6 +2,7 @@ import { ChakraProvider, Box } from '@chakra-ui/react'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 
+import AboutUs from "./pages/AboutUs";
 import Navbar from "./components/navbar"
 import Home from "./pages/home";
 import Dashboard from "./pages/ControlPanel"
@@ -10,6 +11,7 @@ import Upload from "./pages/upload"
 import Card from "./components/card"
 import Video from "./pages/video"
 import YT from "./components/ytplayer"
+
 
 
 
@@ -27,14 +29,11 @@ function App() {
                 index 
                 element={<Home />} 
               />
-              <Route 
+            <Route  
                 path="/about" 
-                element={
-                  <VideoJS 
-                    source={videoUrl} 
-                  />
-                } 
+                element={<AboutUs />} 
               />
+
               <Route 
                 path="/dashboard" 
                 element={<Dashboard />} 
@@ -62,6 +61,8 @@ function App() {
                 path="/youtube" 
                 element={<YT videoId='N1QStjH1rVI'/>} 
               />
+
+
           </Routes>
         </BrowserRouter>
       </Box>
