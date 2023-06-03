@@ -22,77 +22,64 @@ import {
 import { CheckIcon, SearchIcon } from '@chakra-ui/icons';
 
 
-
+const baseYoutubeUrl = "https://www.youtube.com/watch?v=";
 const placeholderImage = "/src/assets/images/pm.png";
 
 const ControlPanel = () => {
-    const [videoId, setVideoId] = useState("");
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [topic, setTopic] = useState("");
-    const [link, setLink] = useState("");
-    const [thumbnail, setThumbnail] = useState("");
-    const [videosData, setVideosData] = useState(
-        [
-          {
-            link: '',
-            thumbnail: placeholderImage,
-            title: 'Pro zobrazení vyhledejte video',
-            description: 'Pro zobrazení vyhledejte video',
-            topic: ''
-          }
-        ]
-    );
+  const [videoId, setVideoId] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [topic, setTopic] = useState("");
+  const [link, setLink] = useState("");
+  const [thumbnail, setThumbnail] = useState("");
+  const [videosData, setVideosData] = useState([
+    {
+      link: '',
+      thumbnail: placeholderImage,
+      title: 'Titulek není k dispozici',
+      description: 'Popis není k dispozici',
+      topic: 'Téma není k dispozici'
+    }
+  ]);
 
-    const baseYoutubeUrl = "https://www.youtube.com/watch?v=";
+  const getVideo = () => {
+    const fetchVideoData = async () => {
+      const response = await fetch('/api/'+videoId);
+      const json = await response.json();
+      if(response.ok) {
+        setVideosData(json);
+      }
+    }
 
+    try {
+      fetchVideoData();
+    } catch (error) {
+      console.log("Can't reach /", error);
+    }
+  }
 
-    const getVideo = () => {
-        const fetchVideoData = async () => {
-          const response = await fetch('/api/'+videoId)
-          //console.table(response);
-          const json = await response.json()
-          if(response.ok) {
-            setVideosData(json)
-            }
-          }
-    
-          try {
-            fetchVideoData()
-          }
-          catch {
-            console.log("Can't reach /")
-          }
-          fetchVideoData();
-    };
-
-    const patchVideo = async () => {
-          try {
-          const response = await fetch('http://localhost:5173/api/'+videoId, {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              id: videoId ,
-              title: title, 
-              link: link, 
-              topic: topic, 
-              description: description, 
-              thumbnail: thumbnail,
-              
-            }),
-          });
-          const data = await response.json();
-          console.log(data);
-
-    
-        } catch (error) {
-          console.error("Error:", error);
-        }
-    };
-
-    console.log(title, description);
+  const patchVideo = async () => {
+    try {
+      const response = await fetch('http://localhost:5173/api/'+videoId, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id: videoId ,
+          title: title, 
+          link: link, 
+          topic: topic, 
+          description: description, 
+          thumbnail: thumbnail, 
+        }),
+      });
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
     return ( 
         <>
