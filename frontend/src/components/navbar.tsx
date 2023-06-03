@@ -89,11 +89,8 @@ export default function withAction() {
  
   
   // Funkce pro odeslání dat na server
-  
   const handleUpload = async () => {
     const videoId = Math.floor(Math.random() * 10000);
-      
-    
     
     // Extrahování videoId z odkazu na YouTube
       let youtubeVideoId = videoUrl.split('v=')[1];
@@ -101,8 +98,6 @@ export default function withAction() {
       if (ampersandPosition !== -1) {
         youtubeVideoId = youtubeVideoId.substring(0, ampersandPosition);
       }
-    
-    
     
       try {
       const response = await fetch('http://localhost:5173/api', {
@@ -125,7 +120,6 @@ export default function withAction() {
       });
       const data = await response.json();
       console.log(data);
-
 
       //restartování modalu při uploadu
       uloadFormOnClose();
@@ -213,10 +207,7 @@ export default function withAction() {
                 />
               </MenuButton>
               <MenuList>
-                <MenuItem>My videos</MenuItem>
                 <MenuItem><Link href={'/dashboard'}>Dashboard</Link></MenuItem>
-                <MenuDivider />
-                <MenuItem>Log out</MenuItem>
               </MenuList>
             </Menu>
           </Flex>
