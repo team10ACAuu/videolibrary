@@ -1,22 +1,19 @@
 import { useState } from 'react';
 import { Box, Table, Thead, Tr, Th, Tbody, Td } from "@chakra-ui/react";
 
+import Patch from "../components/dashboard/patch";
+
 import {
   Stack,
   Input,
   IconButton,
-  Editable, EditableTextarea, EditablePreview,
   Tabs, TabList, TabPanels, Tab, TabPanel
 } from '@chakra-ui/react'
-import { CheckIcon, SearchIcon } from '@chakra-ui/icons';
+import { SearchIcon } from '@chakra-ui/icons';
 
 const ControlPanel = () => {
+  const [isLoaded, setIsLoaded] = useState(false);
   const [videoId, setVideoId] = useState("");
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [topic, setTopic] = useState("");
-  const [link, setLink] = useState("");
-  const [thumbnail, setThumbnail] = useState("");
   const [videosData, setVideosData] = useState([
     {
       link: '',
@@ -26,8 +23,11 @@ const ControlPanel = () => {
       topic: 'Téma není k dispozici'
     }
   ]);
-    
-    //const tit = useRef('')
+
+  //const [title, setTitle] = useState(videosData[0].title);
+  //const [description, setDescription] = useState(videosData[0].description);
+  //const [link, setLink] = useState(videosData[0].link);
+  //const [thumbnail, setThumbnail] = useState(videosData[0].thumbnail);
 
   const getVideo = () => {
     const fetchVideoData = async () => {
@@ -38,7 +38,6 @@ const ControlPanel = () => {
       setVideosData(json)
       }
     }
-    
     try {
       fetchVideoData()
     }
@@ -46,31 +45,9 @@ const ControlPanel = () => {
       console.log("Can't reach /")
     }
     fetchVideoData();
+    setIsLoaded(true);
   };
-
-  const patchVideo = async () => {
-    try {
-      const response = await fetch('http://localhost:5173/api/'+videoId, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        id: videoId ,
-        title: title, 
-        link: link, 
-        topic: topic, 
-        description: description, 
-        thumbnail: thumbnail, 
-        }),
-      });
-      const data = await response.json();
-      console.log(data);
-
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
+  console.log(isLoaded);
 
   return ( 
     <>
@@ -105,27 +82,7 @@ const ControlPanel = () => {
           </Table>
           </TabPanel>
             <TabPanel>
-              <Editable onChange={setTitle} placeholder={videosData[0].title}>
-                <EditablePreview />
-                <EditableTextarea />
-              </Editable>
-              <Editable onChange={setDescription} placeholder={videosData[0].description}>
-                <EditablePreview />
-                <EditableTextarea />
-              </Editable>
-              <Editable onChange={setTopic} defaultValue={videosData[0].topic} placeholder={videosData[0].topic}>
-                <EditablePreview />
-                <EditableTextarea />
-              </Editable>
-              <Editable onChange={setLink} defaultValue={videosData[0].link} placeholder={videosData[0].link}>
-                <EditablePreview />
-                <EditableTextarea />
-              </Editable>
-              <Editable onChange={setThumbnail} defaultValue={videosData[0].thumbnail} placeholder={videosData[0].thumbnail}>
-                <EditablePreview />
-                <EditableTextarea />
-              </Editable>
-              <IconButton onClick={patchVideo} aria-label='Search database' icon={<CheckIcon />} />
+              {isLoaded && <Patch id={videoId} initData={videosData[0]} />}
             </TabPanel>
           </TabPanels>
         </Tabs>
