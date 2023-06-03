@@ -21,7 +21,6 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  MenuDivider,
   useColorMode,
   useDisclosure,
   useColorModeValue,

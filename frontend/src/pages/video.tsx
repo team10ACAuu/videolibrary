@@ -13,8 +13,8 @@ const MyComponent = () => {
     [
       {
         link: '',
-        title: '',
-        description: ''
+        title: 'Titulek není k dispozici',
+        description: 'Popisek není k dispozici'
       }
     ]
   );
