@@ -1,5 +1,12 @@
-import { useState } from 'react';
-import { Box, Table, Thead, Tr, Th, Tbody, Td } from "@chakra-ui/react";
+import { useState, useRef } from 'react';
+import { Box, Link, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, } from "@chakra-ui/react";
+import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+
+
+
+
+
 
 import Patch from "../components/dashboard/patch";
 
@@ -11,13 +18,17 @@ import {
 } from '@chakra-ui/react'
 import { SearchIcon } from '@chakra-ui/icons';
 
+
+const baseYoutubeUrl = "https://www.youtube.com/watch?v=";
+const placeholderImage = "/src/assets/images/pm.png";
+
 const ControlPanel = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [videoId, setVideoId] = useState("");
   const [videosData, setVideosData] = useState([
     {
       link: '',
-      thumbnail: '',
+      thumbnail: placeholderImage,
       title: 'Titulek není k dispozici',
       description: 'Popis není k dispozici',
       topic: 'Téma není k dispozici'
@@ -31,15 +42,16 @@ const ControlPanel = () => {
 
   const getVideo = () => {
     const fetchVideoData = async () => {
-    const response = await fetch('/api/'+videoId)
-    //console.table(response);
-    const json = await response.json()
-    if(response.ok) {
-      setVideosData(json)
+      const response = await fetch('/api/'+videoId);
+      const json = await response.json();
+      if(response.ok) {
+        setVideosData(json);
       }
     }
     try {
-      fetchVideoData()
+      fetchVideoData();
+    } catch (error) {
+      console.log("Can't reach /", error);
     }
     catch {
       console.log("Can't reach /")

@@ -10,9 +10,7 @@ import Upload from "./pages/upload"
 import Card from "./components/card"
 import Video from "./pages/video"
 import YT from "./components/ytplayer"
-
-
-
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
