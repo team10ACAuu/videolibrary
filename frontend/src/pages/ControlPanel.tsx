@@ -20,7 +20,7 @@ const ControlPanel = () => {
             link: '',
             thumbnail: '',
             title: 'Titulek není k dispozici',
-            description: 'Popisek není k dispozici',
+            description: '',
             topic: ''
           }
         ]
@@ -89,26 +89,26 @@ const ControlPanel = () => {
               </TabList>
               <TabPanels>
                 <TabPanel>
-                  <p>one!</p>
+                  <p>Vlastnosti</p>
                 </TabPanel>
                 <TabPanel>
-                  <Editable onChange={setTitle} defaultValue={videosData[0].title} value={title}>
+                  <Editable onChange={setTitle} placeholder={videosData[0].title}>
                       <EditablePreview />
                       <EditableTextarea />
                   </Editable>
-                  <Editable defaultValue={videosData[0].description} value={videosData[0].description}>
+                  <Editable defaultValue={videosData[0].description} placeholder={videosData[0].description}>
                       <EditablePreview />
                       <EditableTextarea />
                   </Editable>
-                  <Editable  defaultValue={videosData[0].topic} value={videosData[0].topic}>
+                  <Editable  defaultValue={videosData[0].topic} placeholder={videosData[0].topic}>
                       <EditablePreview />
                       <EditableTextarea />
                   </Editable>
-                  <Editable defaultValue={videosData[0].link} value={videosData[0].link}>
+                  <Editable defaultValue={videosData[0].link} placeholder={videosData[0].link}>
                       <EditablePreview />
                       <EditableTextarea />
                   </Editable>
-                  <Editable defaultValue={videosData[0].thumbnail} value={videosData[0].thumbnail}>
+                  <Editable defaultValue={videosData[0].thumbnail} placeholder={videosData[0].thumbnail}>
                       <EditablePreview />
                       <EditableTextarea />
                   </Editable>
