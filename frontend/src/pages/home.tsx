@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from "react";
 import CardGrid from "../components/CardGrid";
 
 const Home = () => {
