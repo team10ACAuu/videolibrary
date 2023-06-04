@@ -22,17 +22,9 @@ import {
 import { CheckIcon, SearchIcon } from '@chakra-ui/icons';
 
 const baseYoutubeUrl = "https://www.youtube.com/watch?v=";
-const placeholderImage = "/src/assets/images/pm.png";
+const placeholderImage = "https://siparekraf.kamparkab.go.id/assets/images/no-image.png";
 
 const ControlPanel = () => {
-  const cancelRef = useRef(null);
-  const [videoId, setVideoId] = useState("");
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [link, setLink] = useState("");
-  const [thumbnail, setThumbnail] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
-  const onClose = () => setIsOpen(false);
   const [videosData, setVideosData] = useState([
     {
       link: '',
@@ -42,6 +34,14 @@ const ControlPanel = () => {
       topic: 'Téma není k dispozici'
     }
   ]);
+  const cancelRef = useRef(null);
+  const [videoId, setVideoId] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [link, setLink] = useState("");
+  const [thumbnail, setThumbnail] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const onClose = () => setIsOpen(false);
 
   const getVideo = () => {
     const fetchVideoData = async () => {
@@ -183,25 +183,25 @@ const ControlPanel = () => {
 
             <TabPanel>
               <Text as='b'>Titulek:</Text>
-              <Editable onChange={setTitle} placeholder={videosData[0].title}>
+              <Editable onChange={e => {if(e !== undefined)setTitle(e)}} placeholder={videosData[0].title || 'Titulek'}>
                 <EditablePreview />
                 <EditableTextarea />
               </Editable>
               <Divider orientation='horizontal' />
               <Text as='b'>Popis:</Text>
-              <Editable onChange={setDescription} placeholder={videosData[0].description}>
+              <Editable onChange={e => {if(e !== undefined)setDescription(e)}} placeholder={videosData[0].description || 'Popis'}>
                 <EditablePreview />
                 <EditableTextarea />
               </Editable>
               <Divider orientation='horizontal' />
               <Text as='b'>Odkaz na video:</Text>
-              <Editable onChange={setLink} placeholder={videosData[0].link}>
+              <Editable onChange={e => {if(e !== undefined)setLink(e)}} placeholder={videosData[0].link || 'Odkaz na video'}>
                 <EditablePreview />
                 <EditableTextarea />
               </Editable>
               <Divider orientation='horizontal' />
               <Text as='b'>Odkaz na obrźek:</Text>
-              <Editable onChange={setThumbnail} placeholder={videosData[0].thumbnail}>
+              <Editable onChange={e => {if(e !== undefined)setThumbnail(e)}} placeholder={videosData[0].thumbnail || 'Odkaz na náhledový obrázek'}>
                 <EditablePreview />
                 <EditableTextarea />
               </Editable>
