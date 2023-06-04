@@ -222,7 +222,10 @@ const ControlPanel = () => {
                     <EditablePreview />
                     <EditableTextarea />
                 </Editable>
-                <IconButton onClick={patchVideo} aria-label='Search database' icon={<CheckIcon />} />
+                <br /><Divider orientation='horizontal' /><br />
+                <Button leftIcon={<CheckIcon />} colorScheme='teal' variant='solid' onClick={patchVideo}>
+                  Uložit změny
+                </Button>
               </TabPanel>
             </TabPanels>
           </Tabs>
