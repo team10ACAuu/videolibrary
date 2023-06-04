@@ -201,7 +201,7 @@ const ControlPanel = () => {
               </Editable>
               <Divider orientation='horizontal' />
               <Text as='b'>Odkaz na obrźek:</Text>
-              <Editable onChange={setThumbnail} placeholder={placeholderImage}>
+              <Editable onChange={setThumbnail} placeholder={videosData[0].thumbnail}>
                 <EditablePreview />
                 <EditableTextarea />
               </Editable>
