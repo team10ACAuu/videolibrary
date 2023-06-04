@@ -200,27 +200,25 @@ const ControlPanel = () => {
                   pauseOnHover
                   theme="dark"
                   />    
-
-              
               </TabPanel>
               <TabPanel>
+              <Text as='b'>Titulek:</Text>
                 <Editable onChange={setTitle} placeholder={videosData[0].title}>
                     <EditablePreview />
                     <EditableTextarea />
                 </Editable>
+                <Text as='b'>Popis:</Text>
                 <Editable onChange={setDescription} placeholder={videosData[0].description}>
                     <EditablePreview />
                     <EditableTextarea />
                 </Editable>
-                <Editable onChange={setTopic} defaultValue={videosData[0].topic} placeholder={videosData[0].topic}>
+                <Text as='b'>Odkaz na video:</Text>
+                <Editable onChange={setLink} placeholder={videosData[0].link}>
                     <EditablePreview />
                     <EditableTextarea />
                 </Editable>
-                <Editable onChange={setLink} defaultValue={videosData[0].link} placeholder={videosData[0].link}>
-                    <EditablePreview />
-                    <EditableTextarea />
-                </Editable>
-                <Editable onChange={setThumbnail} defaultValue={videosData[0].thumbnail} placeholder={placeholderImage}>
+                <Text as='b'>Odkaz na obrźek:</Text>
+                <Editable onChange={setThumbnail} placeholder={placeholderImage}>
                     <EditablePreview />
                     <EditableTextarea />
                 </Editable>
