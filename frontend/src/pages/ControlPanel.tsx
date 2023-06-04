@@ -194,7 +194,7 @@ const ControlPanel = () => {
                 <EditableTextarea />
               </Editable>
               <Divider orientation='horizontal' />
-              <Text as='b'>Odkaz na video:</Text>
+              <Text as='b'>Youtube videoId:</Text>
               <Editable onChange={e => {if(e !== undefined)setLink(e)}} placeholder={videosData[0].link || 'Odkaz na video'}>
                 <EditablePreview />
                 <EditableTextarea />
