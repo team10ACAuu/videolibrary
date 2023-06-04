@@ -61,7 +61,7 @@ const ControlPanel = () => {
 
   const patchVideo = async () => {
     try {
-      const response = await fetch('http://localhost:5173/api/'+videoId, {
+      const response = await fetch(`http://localhost:5173/api/${videoId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'
@@ -75,8 +75,13 @@ const ControlPanel = () => {
         }),
       });
       const data = await response.json();
+      toast.success("Video bylo úspěšně změněno.", {
+        autoClose: 1000,
+        hideProgressBar: true
+      });
       console.log(data);
     } catch (error) {
+      toast.error("Nastala chyba při patchování videa.");
       console.error(error);
     }
   };
@@ -154,55 +159,47 @@ const ControlPanel = () => {
                   <Button colorScheme="red" variant="solid" width="full" mt={4} size="sm" boxShadow="x2" onClick={() => setIsOpen(true)}>Vymazat Video</Button>
                 </Box>
               </Box>
-                <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>
-                  <AlertDialogOverlay>
-                    <AlertDialogContent>
-                    <AlertDialogHeader fontSize="lg" fontWeight="bold">
-                      Vymazat Video
-                    </AlertDialogHeader>
-                    <AlertDialogBody>
-                      Opravdu chcete vymazat video?
-                    </AlertDialogBody>
-                    <AlertDialogFooter>
-                    <Button ref={cancelRef} onClick={onClose}>
-                      Ne
-                    </Button>
-                    <Button colorScheme="red" onClick={deleteVideo} ml={3}>
-                      Ano
-                    </Button>
-                    </AlertDialogFooter>    
-                    </AlertDialogContent>
+              <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>
+                <AlertDialogOverlay>
+                  <AlertDialogContent>
+                  <AlertDialogHeader fontSize="lg" fontWeight="bold">
+                    Vymazat Video
+                  </AlertDialogHeader>
+                  <AlertDialogBody>
+                    Opravdu chcete vymazat video?
+                  </AlertDialogBody>
+                  <AlertDialogFooter>
+                  <Button ref={cancelRef} onClick={onClose}>
+                    Ne
+                  </Button>
+                  <Button colorScheme="red" onClick={deleteVideo} ml={3}>
+                    Ano
+                  </Button>
+                  </AlertDialogFooter>    
+                  </AlertDialogContent>
                   </AlertDialogOverlay>
-                </AlertDialog>
-                <ToastContainer
-                  position="top-center"
-                  autoClose={5000}
-                  hideProgressBar={false}
-                  newestOnTop={false}
-                  closeOnClick
-                  rtl={false}
-                  pauseOnFocusLoss
-                  draggable
-                  pauseOnHover
-                  theme="dark"
-                />    
+              </AlertDialog>   
             </TabPanel>
+
             <TabPanel>
               <Text as='b'>Titulek:</Text>
               <Editable onChange={setTitle} placeholder={videosData[0].title}>
                 <EditablePreview />
                 <EditableTextarea />
               </Editable>
+              <Divider orientation='horizontal' />
               <Text as='b'>Popis:</Text>
               <Editable onChange={setDescription} placeholder={videosData[0].description}>
                 <EditablePreview />
                 <EditableTextarea />
               </Editable>
+              <Divider orientation='horizontal' />
               <Text as='b'>Odkaz na video:</Text>
               <Editable onChange={setLink} placeholder={videosData[0].link}>
                 <EditablePreview />
                 <EditableTextarea />
               </Editable>
+              <Divider orientation='horizontal' />
               <Text as='b'>Odkaz na obrźek:</Text>
               <Editable onChange={setThumbnail} placeholder={placeholderImage}>
                 <EditablePreview />
@@ -215,6 +212,18 @@ const ControlPanel = () => {
             </TabPanel>
           </TabPanels>
         </Tabs>
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        /> 
       </Stack>
     </>
   );
