@@ -1,12 +1,9 @@
+// Importování nezbytných knihoven a komponent
+
 import { useState, useRef } from 'react';
 import { Box, Link, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, } from "@chakra-ui/react";
 import { toast } from 'react-toastify';
 import { ToastContainer } from 'react-toastify';
-
-
-
-
-
 
 import {
   Stack,
@@ -28,10 +25,12 @@ import {
 
 import { CheckIcon, SearchIcon } from '@chakra-ui/icons';
 
-
+// Základní URL pro odkazy na YouTube a cesta k placeholder obrázku
 const baseYoutubeUrl = "https://www.youtube.com/watch?v=";
 const placeholderImage = "/src/assets/images/pm.png";
 
+
+// Hlavní komponenta
 const ControlPanel = () => {
   const cancelRef = useRef(null);
   const [videoId, setVideoId] = useState("");
@@ -53,7 +52,8 @@ const ControlPanel = () => {
       topic: 'Téma není k dispozici'
     }
   ]);
-
+ 
+  // Funkce pro získání videa
   const getVideo = () => {
     const fetchVideoData = async () => {
       const response = await fetch('/api/'+videoId);
@@ -69,7 +69,8 @@ const ControlPanel = () => {
       console.log("Can't reach /", error);
     }
   }
-
+  
+  // Funkce pro úpravu (PATCH) videa
   const patchVideo = async () => {
     try {
       const response = await fetch('http://localhost:5173/api/'+videoId, {
@@ -93,7 +94,7 @@ const ControlPanel = () => {
     }
   };
 
-  
+  // Funkce pro smazání videa
   const deleteVideo = async () => {
     try {
       const response = await fetch(`http://localhost:5173/api/${videoId}`, {
@@ -121,10 +122,11 @@ const ControlPanel = () => {
       console.error("An error occurred while deleting the video.", error);
     }
   };
-  
+ 
+  // Zde je implementace UI pomocí Chakra UI komponent
     return ( 
         <>
-          <Stack spacing={3}>
+          <Stack spacing={3}>    
             <Input onChange={(e) => setVideoId(e.target.value)} placeholder='id' size='md' />
             <IconButton onClick={getVideo} aria-label='Search database' icon={<SearchIcon />} />
             <Tabs variant='enclosed'>
@@ -200,8 +202,6 @@ const ControlPanel = () => {
                   pauseOnHover
                   theme="dark"
                   />    
-
-              
               </TabPanel>
               <TabPanel>
                 <Editable onChange={setTitle} placeholder={videosData[0].title}>

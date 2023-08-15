@@ -1,6 +1,6 @@
 import { Box, Flex, Avatar, Text } from '@chakra-ui/react';
 
-// Toto jsou data pro vaše avatary - měli byste je nahradit skutečnými daty
+// Každý objekt v poli reprezentuje jednoho autora
 const authors = [
   {
     name: 'David R.',
@@ -28,6 +28,8 @@ const authors = [
   },
 ];
 
+// Flex a Box komponenty z Chakra UI pro úpravy layoutu
+// Používá Avatar a Text komponenty pro zobrazení informací o autorovi
 const AboutUs = () => (
   <Box p={5}>
     <Flex justify="space-around" wrap="wrap">

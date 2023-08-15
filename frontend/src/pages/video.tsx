@@ -45,6 +45,8 @@ const MyComponent = () => {
       fetchVideoData();
   }, []);
 
+
+  //Zobrazení přehrávače a popisku
   return (
     <>
       {<YTplayer videoId={videosData[0].link} />}

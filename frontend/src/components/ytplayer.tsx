@@ -8,8 +8,12 @@ interface Options {
   height: string;
   width: string;
 }
+// Tato komponenta přijímá jako props videoId a vytvoří YouTube přehrávač pro dané video
+  // Vracíme komponentu, která zahrnuje přehrávač YouTube
 
 const YouTubePlayer: React.FC<YouTubePlayerProps> = ({ videoId }) => {
+ 
+ // Definujeme možnosti pro náš YouTube přehrávač
   const opts: Options = {
     height: '100%',
     width: '100%',
