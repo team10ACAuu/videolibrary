@@ -29,7 +29,7 @@ const createVideo = async (req, res) => {
         });
         res.status(200).json(video);
     } catch (error) {
-        res.status(400).json({ error: error.message, body: req.body, nameOf: nameOfThisVideo });
+        res.status(400).json({ error: error.message, body: req.body, nameOf: title });
         console.log({body: req.body});
     }
 }
